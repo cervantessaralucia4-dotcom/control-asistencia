@@ -8,6 +8,15 @@ def client():
     with app.test_client() as client:
         yield client
 
+@pytest.fixture(autouse=True)
+def clean_db():
+    init_db()
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM asistencias")
+    conn.commit()
+    conn.close()
+
 def test_fallo_1_eliminar_sin_autenticacion_rechazado(client):
     """
     FALLO 1 (Criterio 5 - Control de acceso):
