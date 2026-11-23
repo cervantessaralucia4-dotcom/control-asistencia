@@ -3,6 +3,7 @@ import sqlite3
 from datetime import date
 from dotenv import load_dotenv
 from flask import Flask, flash, redirect, render_template, request, session, url_for
+from werkzeug.security import check_password_hash, generate_password_hash
 
 # Cargar variables de entorno desde archivo .env local
 load_dotenv()
@@ -42,11 +43,20 @@ def init_db():
             estado TEXT NOT NULL
         )
     ''')
-    # Insertar usuario instructor por defecto si no existe
-    # FALLO 2 (Contraseñas y hash): Contraseña en texto plano sin aplicar hash seguro
+    # Insertar usuario instructor por defecto si no existe (con hash seguro)
     cursor.execute("SELECT * FROM usuarios WHERE username = 'instructor'")
-    if not cursor.fetchone():
-        cursor.execute("INSERT INTO usuarios (username, password) VALUES ('instructor', 'sena2024')")
+    user = cursor.fetchone()
+    if not user:
+        cursor.execute(
+            "INSERT INTO usuarios (username, password) VALUES (?, ?)",
+            ('instructor', generate_password_hash('sena2024'))
+        )
+    elif not user['password'].startswith(('scrypt:', 'pbkdf2:')):
+        # Migración a hash si existe contraseña previa en texto plano
+        cursor.execute(
+            "UPDATE usuarios SET password = ? WHERE username = 'instructor'",
+            (generate_password_hash('sena2024'),)
+        )
     conn.commit()
     conn.close()
 
@@ -64,12 +74,12 @@ def login():
 
         conn = get_db()
         cursor = conn.cursor()
-        # Verificación directa de contraseña en texto plano (Fallo 2)
-        cursor.execute("SELECT * FROM usuarios WHERE username = ? AND password = ?", (username, password))
+        # Verificación segura mediante hash criptográfico (Criterio 3: Contraseñas y hash)
+        cursor.execute("SELECT * FROM usuarios WHERE username = ?", (username,))
         user = cursor.fetchone()
         conn.close()
 
-        if user:
+        if user and check_password_hash(user['password'], password):
             session['user'] = user['username']
             flash('Inicio de sesión exitoso')
             return redirect(url_for('asistencia'))

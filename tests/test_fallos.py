@@ -39,3 +39,28 @@ def test_fallo_1_eliminar_sin_autenticacion_rechazado(client):
     registro = cursor.fetchone()
     conn.close()
     assert registro is not None, "VULNERABILIDAD: El registro fue eliminado sin sesión activa"
+
+def test_fallo_2_contrasenas_con_hash_seguro():
+    """
+    FALLO 2 (Criterio 3 - Contraseñas y hash):
+    Las contraseñas de los usuarios no deben almacenarse en texto plano.
+    Deben usar un hash seguro de werkzeug.security (scrypt o pbkdf2)
+    y no coincidir con la contraseña en texto plano original.
+    """
+    init_db()
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT password FROM usuarios WHERE username = 'instructor'")
+    row = cursor.fetchone()
+    conn.close()
+
+    assert row is not None, "El usuario instructor debe existir"
+    stored_password = row['password']
+
+    # La contraseña en base de datos NO debe ser texto plano
+    assert stored_password != "sena2024", "VULNERABILIDAD: La contraseña se almacena en texto plano"
+
+    # La contraseña debe tener el formato de un hash criptográfico de Werkzeug
+    assert stored_password.startswith(("scrypt:", "pbkdf2:sha256:")), (
+        f"La contraseña no tiene formato de hash seguro válido: {stored_password}"
+    )
