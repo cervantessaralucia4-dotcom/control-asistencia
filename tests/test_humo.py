@@ -19,3 +19,4 @@ def test_login_carga_correctamente(client):
     response = client.get('/login')
     assert response.status_code == 200
     assert b"Inicio de Sesi" in response.data or b"login" in response.data.lower()
+
