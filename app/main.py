@@ -1,16 +1,15 @@
 import os
 import sqlite3
 from datetime import date
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from dotenv import load_dotenv
+from flask import Flask, flash, redirect, render_template, request, session, url_for
+
+# Cargar variables de entorno desde archivo .env local
+load_dotenv()
 
 # Configuración básica de templates
 template_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'templates'))
 app = Flask(__name__, template_folder=template_dir)
-
-from dotenv import load_dotenv
-
-# Cargar variables de entorno desde archivo .env local
-load_dotenv()
 
 # Clave de sesión extraída de variables de entorno (Criterio 4: Secretos y claves)
 app.secret_key = os.environ.get("SECRET_KEY", "fallback_dev_insegura_solo_para_tests")
@@ -62,14 +61,14 @@ def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        
+
         conn = get_db()
         cursor = conn.cursor()
         # Verificación directa de contraseña en texto plano (Fallo 2)
         cursor.execute("SELECT * FROM usuarios WHERE username = ? AND password = ?", (username, password))
         user = cursor.fetchone()
         conn.close()
-        
+
         if user:
             session['user'] = user['username']
             flash('Inicio de sesión exitoso')
@@ -77,7 +76,7 @@ def login():
         else:
             flash('Credenciales incorrectas')
             return redirect(url_for('login'))
-            
+
     return render_template('login.html')
 
 @app.route('/logout')
@@ -91,7 +90,7 @@ def asistencia():
     if 'user' not in session:
         flash('Debe iniciar sesión para acceder')
         return redirect(url_for('login'))
-        
+
     fecha = request.args.get('fecha', date.today().isoformat())
     conn = get_db()
     cursor = conn.cursor()
@@ -105,12 +104,12 @@ def registrar():
     if 'user' not in session:
         flash('No autorizado')
         return redirect(url_for('login'))
-        
+
     aprendiz = request.form.get('aprendiz')
     ficha = request.form.get('ficha')
     fecha = request.form.get('fecha')
     estado = request.form.get('estado')
-    
+
     conn = get_db()
     cursor = conn.cursor()
     cursor.execute(
