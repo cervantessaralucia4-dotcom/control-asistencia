@@ -4,7 +4,7 @@
 
 - **Aprendiz:** Sara Lucia Cervantes Pallares
 - **Programa:** Análisis y Desarrollo de Software (ADSO) - SENA
-- **Proyecto / Enunciado:** N.º 6 - Control de Asistencia
+- **Instructor Evaluador:** Omar Gutiérrez
 - **Fecha:** 23 de noviembre de 2026
 - **Archivo de salida PDF:** `CervantesSaraSemana1Dia4.pdf`
 
@@ -12,12 +12,9 @@
 
 ## Evidencia 1: Datos Iniciales y Selección de Fallos (Reto 0)
 
-### 1. URLs Públicas de Repositorios
-- **Repositorio Reto 0 / Proyecto:** [https://github.com/cervantessaralucia4-dotcom/control-asistencia](https://github.com/cervantessaralucia4-dotcom/control-asistencia)
-- **Repositorio Plataforma Lúdica:** [https://github.com/saracervantes/plataforma-ludica](https://github.com/saracervantes/plataforma-ludica)
-
-### 2. Número de Enunciado y Descripción
-- **Enunciado:** N.º 6 — Control de Asistencia
+### 1. URLs Públicas de Repositorios y Enunciado
+- **Repositorio Oficial del Proyecto:** https://github.com/cervantessaralucia4-dotcom/control-asistencia
+- **Número de Enunciado:** N.º 6 — Control de Asistencia
 - **Descripción:** Aplicación web en Python (Flask + SQLite) para registrar, editar, consultar y eliminar la asistencia de aprendices por fecha, con inicio de sesión exclusivo para el instructor.
 
 ### 3. Tabla de los 3 Fallos Seleccionados de la Auditoría Inicial
