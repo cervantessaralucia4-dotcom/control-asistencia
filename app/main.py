@@ -1,14 +1,19 @@
 import os
 import sqlite3
 from datetime import date
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from dotenv import load_dotenv
+from flask import Flask, flash, redirect, render_template, request, session, url_for
+from werkzeug.security import check_password_hash, generate_password_hash
+
+# Cargar variables de entorno desde archivo .env local
+load_dotenv()
 
 # Configuración básica de templates
 template_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'templates'))
 app = Flask(__name__, template_folder=template_dir)
 
-# FALLO 1 (Secretos y claves): Clave secreta hardcodeada en el código fuente
-app.secret_key = "clave_secreta_instructor_insegura_123"
+# Clave de sesión extraída de variables de entorno (Criterio 4: Secretos y claves)
+app.secret_key = os.environ.get("SECRET_KEY", "fallback_dev_insegura_solo_para_tests")
 
 DB_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'asistencia.db'))
 
@@ -38,11 +43,20 @@ def init_db():
             estado TEXT NOT NULL
         )
     ''')
-    # Insertar usuario instructor por defecto si no existe
-    # FALLO 2 (Contraseñas y hash): Contraseña en texto plano sin aplicar hash seguro
+    # Insertar usuario instructor por defecto si no existe (con hash seguro)
     cursor.execute("SELECT * FROM usuarios WHERE username = 'instructor'")
-    if not cursor.fetchone():
-        cursor.execute("INSERT INTO usuarios (username, password) VALUES ('instructor', 'sena2024')")
+    user = cursor.fetchone()
+    if not user:
+        cursor.execute(
+            "INSERT INTO usuarios (username, password) VALUES (?, ?)",
+            ('instructor', generate_password_hash('sena2024'))
+        )
+    elif not user['password'].startswith(('scrypt:', 'pbkdf2:')):
+        # Migración a hash si existe contraseña previa en texto plano
+        cursor.execute(
+            "UPDATE usuarios SET password = ? WHERE username = 'instructor'",
+            (generate_password_hash('sena2024'),)
+        )
     conn.commit()
     conn.close()
 
@@ -57,22 +71,22 @@ def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        
+
         conn = get_db()
         cursor = conn.cursor()
-        # Verificación directa de contraseña en texto plano (Fallo 2)
-        cursor.execute("SELECT * FROM usuarios WHERE username = ? AND password = ?", (username, password))
+        # Verificación segura mediante hash criptográfico (Criterio 3: Contraseñas y hash)
+        cursor.execute("SELECT * FROM usuarios WHERE username = ?", (username,))
         user = cursor.fetchone()
         conn.close()
-        
-        if user:
+
+        if user and check_password_hash(user['password'], password):
             session['user'] = user['username']
             flash('Inicio de sesión exitoso')
             return redirect(url_for('asistencia'))
         else:
             flash('Credenciales incorrectas')
             return redirect(url_for('login'))
-            
+
     return render_template('login.html')
 
 @app.route('/logout')
@@ -86,7 +100,7 @@ def asistencia():
     if 'user' not in session:
         flash('Debe iniciar sesión para acceder')
         return redirect(url_for('login'))
-        
+
     fecha = request.args.get('fecha', date.today().isoformat())
     conn = get_db()
     cursor = conn.cursor()
@@ -95,17 +109,24 @@ def asistencia():
     conn.close()
     return render_template('asistencia.html', asistencias=registros, fecha_filtro=fecha)
 
+ESTADOS_VALIDOS = {'Presente', 'Ausente', 'Excusa'}
+
 @app.route('/asistencia/registrar', methods=['POST'])
 def registrar():
     if 'user' not in session:
         flash('No autorizado')
         return redirect(url_for('login'))
-        
-    aprendiz = request.form.get('aprendiz')
-    ficha = request.form.get('ficha')
-    fecha = request.form.get('fecha')
+
+    aprendiz = (request.form.get('aprendiz') or '').strip()
+    ficha = (request.form.get('ficha') or '').strip()
+    fecha = request.form.get('fecha') or date.today().isoformat()
     estado = request.form.get('estado')
-    
+
+    # Validación estricta de entradas (Criterio 2: Validación de entradas)
+    if not aprendiz or not ficha or estado not in ESTADOS_VALIDOS:
+        flash('Datos de asistencia inválidos o incompletos')
+        return redirect(url_for('asistencia', fecha=fecha))
+
     conn = get_db()
     cursor = conn.cursor()
     cursor.execute(
@@ -117,11 +138,14 @@ def registrar():
     flash('Asistencia registrada correctamente')
     return redirect(url_for('asistencia', fecha=fecha))
 
-# FALLO 3 (Control de acceso): Endpoint de eliminación no valida sesión de instructor
+# Corrección Fallo 1 (Criterio 5 - Control de acceso): Validar sesión activa de instructor
 @app.route('/asistencia/eliminar/<int:id>')
 def eliminar(id):
+    if 'user' not in session:
+        flash('Debe iniciar sesión para realizar esta acción')
+        return redirect(url_for('login'))
+
     fecha = request.args.get('fecha', date.today().isoformat())
-    # NOTA: No se verifica `if 'user' not in session:` permitiendo acceso no autenticado
     conn = get_db()
     cursor = conn.cursor()
     cursor.execute("DELETE FROM asistencias WHERE id = ?", (id,))
