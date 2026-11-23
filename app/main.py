@@ -7,8 +7,13 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 template_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'templates'))
 app = Flask(__name__, template_folder=template_dir)
 
-# FALLO 1 (Secretos y claves): Clave secreta hardcodeada en el código fuente
-app.secret_key = "clave_secreta_instructor_insegura_123"
+from dotenv import load_dotenv
+
+# Cargar variables de entorno desde archivo .env local
+load_dotenv()
+
+# Clave de sesión extraída de variables de entorno (Criterio 4: Secretos y claves)
+app.secret_key = os.environ.get("SECRET_KEY", "fallback_dev_insegura_solo_para_tests")
 
 DB_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'asistencia.db'))
 
