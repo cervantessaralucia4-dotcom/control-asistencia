@@ -121,11 +121,14 @@ def registrar():
     flash('Asistencia registrada correctamente')
     return redirect(url_for('asistencia', fecha=fecha))
 
-# FALLO 3 (Control de acceso): Endpoint de eliminación no valida sesión de instructor
+# Corrección Fallo 1 (Criterio 5 - Control de acceso): Validar sesión activa de instructor
 @app.route('/asistencia/eliminar/<int:id>')
 def eliminar(id):
+    if 'user' not in session:
+        flash('Debe iniciar sesión para realizar esta acción')
+        return redirect(url_for('login'))
+
     fecha = request.args.get('fecha', date.today().isoformat())
-    # NOTA: No se verifica `if 'user' not in session:` permitiendo acceso no autenticado
     conn = get_db()
     cursor = conn.cursor()
     cursor.execute("DELETE FROM asistencias WHERE id = ?", (id,))

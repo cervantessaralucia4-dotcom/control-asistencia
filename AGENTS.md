@@ -27,4 +27,5 @@ Sistema web para registrar, consultar, editar y eliminar asistencia de aprendice
 - NO almacenar contraseñas en texto plano; usar siempre hashing seguro.
 
 ## Lecciones aprendidas
-- (Reglas acumuladas tras el ciclo Rojo/Verde)
+- Todo endpoint que mute o elimine datos debe verificar la sesión activa del instructor antes de tocar la BD.
+
