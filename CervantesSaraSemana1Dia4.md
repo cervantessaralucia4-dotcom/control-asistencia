@@ -13,7 +13,7 @@
 ## Evidencia 1: Datos Iniciales y Selección de Fallos (Reto 0)
 
 ### 1. URLs Públicas de Repositorios
-- **Repositorio Reto 0 / Proyecto:** [https://github.com/saracervantes/control-asistencia](https://github.com/saracervantes/control-asistencia)
+- **Repositorio Reto 0 / Proyecto:** [https://github.com/cervantessaralucia4-dotcom/control-asistencia](https://github.com/cervantessaralucia4-dotcom/control-asistencia)
 - **Repositorio Plataforma Lúdica:** [https://github.com/saracervantes/plataforma-ludica](https://github.com/saracervantes/plataforma-ludica)
 
 ### 2. Número de Enunciado y Descripción
@@ -366,3 +366,4 @@ Status: ✓ All checks passed (master / tag: semana-1)
 - Revisión de estilo y estándares (Ruff) ................. Passed (0s)
 - Ejecutar suite de pruebas (Pytest) ..................... Passed (2s)
 ```
+
