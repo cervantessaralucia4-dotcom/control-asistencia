@@ -64,3 +64,34 @@ def test_fallo_2_contrasenas_con_hash_seguro():
     assert stored_password.startswith(("scrypt:", "pbkdf2:sha256:")), (
         f"La contraseña no tiene formato de hash seguro válido: {stored_password}"
     )
+
+def test_fallo_3_validacion_estricta_entradas_asistencia(client):
+    """
+    FALLO 3 (Criterio 2 - Validación de entradas):
+    El registro de asistencia debe validar obligatoriamente que:
+    1. El nombre del aprendiz y la ficha no estén vacíos.
+    2. El estado pertenezca a la lista blanca ('Presente', 'Ausente', 'Excusa').
+    Cualquier valor fuera de la lista blanca debe ser rechazado.
+    """
+    # Sesión autenticada de instructor
+    with client.session_transaction() as sess:
+        sess['user'] = 'instructor'
+
+    # Intento de registrar con estado inválido no permitido
+    client.post('/asistencia/registrar', data={
+        'aprendiz': 'Aprendiz Prueba',
+        'ficha': '2670123',
+        'fecha': '2026-11-23',
+        'estado': 'EstadoInvalidoMalicioso'
+    }, follow_redirects=True)
+
+    # Verificamos que NO se haya guardado en la BD
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM asistencias WHERE estado = 'EstadoInvalidoMalicioso'")
+    registro_invalido = cursor.fetchone()
+    conn.close()
+
+    assert registro_invalido is None, (
+        "VULNERABILIDAD: Se permitió registrar un estado de asistencia arbitrario no permitido"
+    )

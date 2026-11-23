@@ -29,4 +29,5 @@ Sistema web para registrar, consultar, editar y eliminar asistencia de aprendice
 ## Lecciones aprendidas
 - Todo endpoint que mute o elimine datos debe verificar la sesión activa del instructor antes de tocar la BD.
 - Las contraseñas nunca deben guardarse ni validarse en texto plano; usar hashing robusto (Werkzeug).
+- Validar en el backend con listas blancas estrictas y no confiar únicamente en los formularios HTML.
 

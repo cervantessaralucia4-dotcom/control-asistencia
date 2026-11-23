@@ -109,16 +109,23 @@ def asistencia():
     conn.close()
     return render_template('asistencia.html', asistencias=registros, fecha_filtro=fecha)
 
+ESTADOS_VALIDOS = {'Presente', 'Ausente', 'Excusa'}
+
 @app.route('/asistencia/registrar', methods=['POST'])
 def registrar():
     if 'user' not in session:
         flash('No autorizado')
         return redirect(url_for('login'))
 
-    aprendiz = request.form.get('aprendiz')
-    ficha = request.form.get('ficha')
-    fecha = request.form.get('fecha')
+    aprendiz = (request.form.get('aprendiz') or '').strip()
+    ficha = (request.form.get('ficha') or '').strip()
+    fecha = request.form.get('fecha') or date.today().isoformat()
     estado = request.form.get('estado')
+
+    # Validación estricta de entradas (Criterio 2: Validación de entradas)
+    if not aprendiz or not ficha or estado not in ESTADOS_VALIDOS:
+        flash('Datos de asistencia inválidos o incompletos')
+        return redirect(url_for('asistencia', fecha=fecha))
 
     conn = get_db()
     cursor = conn.cursor()
