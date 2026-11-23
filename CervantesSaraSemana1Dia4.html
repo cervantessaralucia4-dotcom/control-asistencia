@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CervantesSaraSemana1Dia4 - Evidencias Taller 1 y Taller 4</title>
+    <style>
+        :root {
+            --primary: #00324D;
+            --accent: #39A900;
+            --danger: #d9534f;
+            --dark: #222;
+            --light: #f8f9fa;
+            --border: #dee2e6;
+            --terminal-bg: #1e1e1e;
+            --terminal-color: #d4d4d4;
+        }
+        @page {
+            size: A4;
+            margin: 15mm 15mm 15mm 15mm;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #333;
+            line-height: 1.5;
+            background-color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+        .header {
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            color: var(--primary);
+            margin: 0 0 5px 0;
+            font-size: 24px;
+        }
+        .header .meta {
+            font-size: 13px;
+            color: #666;
+        }
+        .badge {
+            background-color: var(--accent);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .evidencia-card {
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            margin-bottom: 25px;
+            page-break-inside: avoid;
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .evidencia-header {
+            background-color: #f1f5f8;
+            border-bottom: 1px solid var(--border);
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .evidencia-header h2 {
+            margin: 0;
+            font-size: 16px;
+            color: var(--primary);
+        }
+        .evidencia-body {
+            padding: 16px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 13px;
+        }
+        th, td {
+            border: 1px solid var(--border);
+            padding: 8px 10px;
+            text-align: left;
+        }
+        th {
+            background-color: var(--primary);
+            color: #fff;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #fcfcfc;
+        }
+        .terminal {
+            background-color: var(--terminal-bg);
+            color: var(--terminal-color);
+            padding: 12px 14px;
+            border-radius: 5px;
+            font-family: "Consolas", "Courier New", monospace;
+            font-size: 12px;
+            line-height: 1.4;
+            overflow-x: auto;
+            margin: 10px 0;
+            white-space: pre-wrap;
+            border-left: 4px solid var(--accent);
+        }
+        .terminal-red {
+            border-left-color: var(--danger);
+        }
+        .terminal .prompt {
+            color: #6a9955;
+        }
+        .terminal .cmd {
+            color: #4ec9b0;
+            font-weight: bold;
+        }
+        .terminal .error {
+            color: #f48771;
+            font-weight: bold;
+        }
+        .terminal .success {
+            color: #89d185;
+            font-weight: bold;
+        }
+        .diff {
+            background-color: #1a1a1a;
+            color: #ccc;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 11.5px;
+            line-height: 1.35;
+            margin: 10px 0;
+            white-space: pre-wrap;
+        }
+        .diff-add { color: #89d185; }
+        .diff-rem { color: #f48771; }
+        .signature-box {
+            border: 1px dashed var(--primary);
+            background-color: #f7fafc;
+            padding: 14px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+        @media print {
+            body { padding: 0; }
+            .evidencia-card { box-shadow: none; }
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div>
+            <h1>Documento de Evidencias - Semana 1 (Día 4)</h1>
+            <div class="meta">
+                <strong>Aprendiz:</strong> Sara Lucia Cervantes Pallares | 
+                <strong>Programa:</strong> ADSO - SENA | 
+                <strong>Proyecto:</strong> N.º 6 - Control de Asistencia
+            </div>
+        </div>
+        <div>
+            <span class="badge">Taller 1 + Taller 4</span>
+        </div>
+    </div>
+
+    <!-- EVIDENCIA 1 -->
+    <div class="evidencia-card">
+        <div class="evidencia-header">
+            <h2>Evidencia 1: Datos Iniciales y Selección de Fallos (Reto 0)</h2>
+            <span class="badge">Datos de Partida</span>
+        </div>
+        <div class="evidencia-body">
+            <p><strong>Número de Enunciado:</strong> N.º 6 — Control de Asistencia</p>
+            <p><strong>Descripción:</strong> Aplicación web en Python (Flask + SQLite) para registrar, editar, consultar y eliminar la asistencia de aprendices por fecha, con acceso exclusivo de instructor.</p>
+            <p><strong>Repositorios del Aprendiz:</strong></p>
+            <ul>
+                <li><strong>Repositorio Reto 0 / Proyecto:</strong> <code>https://github.com/saracervantes/control-asistencia</code></li>
+                <li><strong>Repositorio Plataforma Lúdica:</strong> <code>https://github.com/saracervantes/plataforma-ludica</code></li>
+            </ul>
+
+            <h4>Tabla de los 3 Fallos Seleccionados de la Auditoría Inicial</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>N.°</th>
+                        <th>Criterio Evaluado</th>
+                        <th>Archivo y Línea Inicial</th>
+                        <th>Descripción Técnica del Fallo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Fallo 1</strong></td>
+                        <td>Criterio 5: Control de acceso</td>
+                        <td><code>app/main.py</code> (Línea 121)</td>
+                        <td>El endpoint <code>/asistencia/eliminar/&lt;id&gt;</code> no valida la sesión activa del instructor, permitiendo a usuarios anónimos borrar registros de asistencia.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fallo 2</strong></td>
+                        <td>Criterio 3: Contraseñas y hash</td>
+                        <td><code>app/main.py</code> (Líneas 45 y 64)</td>
+                        <td>Contraseña del instructor almacenada en texto plano (<code>'sena2024'</code>) y comparada directamente en la consulta SQL sin aplicar una función hash criptográfica.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fallo 3</strong></td>
+                        <td>Criterio 2: Validación de entradas</td>
+                        <td><code>app/main.py</code> (Líneas 107 y 111)</td>
+                        <td>El endpoint de registro no valida listas blancas en el campo <code>estado</code> ni descarta cadenas vacías, permitiendo persistir datos inconsistentes.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- EVIDENCIA 2 -->
+    <div class="evidencia-card">
+        <div class="evidencia-header">
+            <h2>Evidencia 2: Revisión de Secretos y Configuración de Entorno</h2>
+            <span class="badge">Seguridad</span>
+        </div>
+        <div class="evidencia-body">
+            <p><strong>Comprobación antes de la corrección:</strong> Detección de claves de sesión quemadas en el código fuente versionado.</p>
+            <div class="terminal terminal-red"><span class="prompt">$</span> <span class="cmd">git grep -n "clave_secreta"</span>
+app/main.py:11:app.secret_key = "clave_secreta_instructor_insegura_123"</div>
+
+            <p><strong>Comprobación después de la corrección:</strong> Código refactorizado para cargar secretos con <code>os.environ.get("SECRET_KEY")</code> y exclusión estricta en <code>.gitignore</code>.</p>
+            <div class="terminal"><span class="prompt">$</span> <span class="cmd">git grep -n "clave_secreta"</span>
+<span class="success"># (Sin salidas: 0 secretos expuestos en archivos rastreados)</span>
+
+<span class="prompt">$</span> <span class="cmd">git check-ignore -v .env</span>
+<span class="success">.gitignore:7:.env        .env</span></div>
+
+            <p><strong>Plantilla de variables de entorno compartida (<code>.env.example</code>):</strong></p>
+            <div class="terminal">SECRET_KEY=clave_secreta_segura_para_desarrollo_local
+DEBUG=True</div>
+        </div>
+    </div>
+
+    <!-- EVIDENCIA 3 -->
+    <div class="evidencia-card">
+        <div class="evidencia-header">
+            <h2>Evidencia 3: Contexto del Agente (AGENTS.md)</h2>
+            <span class="badge">33 Líneas</span>
+        </div>
+        <div class="evidencia-body">
+            <p>Archivo <code>AGENTS.md</code> redactado rigurosamente en 33 líneas (límite máximo permitido: 40 líneas):</p>
+            <div class="terminal"># Contexto para Agentes de IA - Control de Asistencia
+
+## Proyecto
+Sistema web para registrar, consultar, editar y eliminar asistencia de aprendices por fecha (SENA), con autenticación exclusiva de instructores.
+
+## Stack
+- Python 3.10+, Flask 3.x, SQLite3, Jinja2, python-dotenv.
+- Testing y Calidad: Pytest, Ruff, Pre-commit.
+
+## Comandos
+- Entorno: `python -m venv .venv && source .venv/bin/activate` (o `.venv\Scripts\activate`)
+- Instalar dependencias: `pip install -r requirements.txt`
+- Ejecutar: `python app/main.py`
+- Pruebas: `pytest tests/`
+- Linter: `ruff check .` / Formato: `ruff format .`
+
+## Estructura
+- `app/`: Lógica de la aplicación y base de datos (`main.py`).
+- `templates/`: Plantillas HTML (`base.html`, `login.html`, `asistencia.html`).
+- `tests/`: Pruebas de humo (`test_humo.py`) y pruebas de regresión (`test_fallos.py`).
+- Archivos raíz: `.env.example`, `.gitignore`, `pyproject.toml`, `requirements.txt`.
+
+## Qué no hacer
+- NUNCA quemar secretos, tokens o contraseñas en el código fuente.
+- NO subir `.env`, bases de datos SQLite (`*.db`) ni `.venv` a Git.
+- NO omitir validaciones de sesión en endpoints de modificación o eliminación.
+- NO almacenar contraseñas en texto plano; usar siempre hashing seguro.
+
+## Lecciones aprendidas
+- Todo endpoint que mute o elimine datos debe verificar la sesión activa del instructor antes de tocar la BD.
+- Las contraseñas nunca deben guardarse ni validarse en texto plano; usar hashing robusto (Werkzeug).
+- Validar en el backend con listas blancas estrictas y no confiar únicamente en los formularios HTML.</div>
+        </div>
+    </div>
+
+    <!-- EVIDENCIA 4 -->
+    <div class="evidencia-card">
+        <div class="evidencia-header">
+            <h2>Evidencia 4: Red de Seguridad (Prueba de Humo, Ruff y Pre-commit)</h2>
+            <span class="badge">Passed</span>
+        </div>
+        <div class="evidencia-body">
+            <p><strong>1. Prueba de humo en verde (<code>pytest tests/test_humo.py</code>):</strong></p>
+            <div class="terminal"><span class="prompt">$</span> <span class="cmd">pytest tests/test_humo.py -v</span>
+============================= test session starts =============================
+platform win32 -- Python 3.15.2, pytest-8.2.2, pluggy-1.7.0
+rootdir: C:\Users\sarit\.gemini\antigravity\scratch\control-asistencia
+configfile: pyproject.toml
+collected 2 items
+
+tests/test_humo.py::test_app_arranque <span class="success">PASSED</span>                             [ 50%]
+tests/test_humo.py::test_login_carga_correctamente <span class="success">PASSED</span>                [100%]
+
+============================== <span class="success">2 passed in 0.80s</span> ==============================</div>
+
+            <p><strong>2. Revisión estricta de linter en verde (<code>ruff check .</code>):</strong></p>
+            <div class="terminal"><span class="prompt">$</span> <span class="cmd">ruff check .</span>
+<span class="success">All checks passed!</span></div>
+
+            <p><strong>3. Validación de Pre-commit Hooks en estado PASSED:</strong></p>
+            <div class="terminal"><span class="prompt">$</span> <span class="cmd">pre-commit run --all-files</span>
+ruff-check...............................................................<span class="success">Passed</span>
+pytest-check.............................................................<span class="success">Passed</span></div>
+
+            <p><strong>4. Commit asociado a la configuración de calidad:</strong></p>
+            <div class="terminal">[master 15c101f] chore(quality): configurar pre-commit con ruff y pytest
+ 3 files changed, 18 insertions(+), 19 deletions(-)</div>
+        </div>
+    </div>
+
+    <!-- EVIDENCIA 5 -->
+    <div class="evidencia-card">
+        <div class="evidencia-header">
+            <h2>Evidencia 5: Ciclo TDD Fallo 1 — Control de Acceso</h2>
+            <span class="badge">Fallo 1 Resuelto</span>
+        </div>
+        <div class="evidencia-body">
+            <p><strong>Paso Rojo (Prueba fallando por falta de autenticación en eliminar):</strong></p>
+            <div class="terminal terminal-red"><span class="prompt">$</span> <span class="cmd">pytest tests/test_fallos.py -k "test_fallo_1" -v</span>
+tests/test_fallos.py::test_fallo_1_eliminar_sin_autenticacion_rechazado <span class="error">FAILED</span> [100%]
+================================== FAILURES ===================================
+    response = client.get(f"/asistencia/eliminar/{reg_id}", follow_redirects=False)
+    assert response.status_code == 302
+>   assert "/login" in response.headers.get("Location", "")
+<span class="error">E   AssertionError: assert '/login' in '/asistencia?fecha=2026-11-23'</span>
+============================== <span class="error">1 failed in 1.27s</span> ==============================</div>
+
+            <p><strong>Paso Verde (Diff de la corrección mínima aplicada en <code>app/main.py</code>):</strong></p>
+            <div class="diff">@@ -121,11 +121,14 @@ def registrar():
+- # FALLO 3 (Control de acceso): Endpoint de eliminación no valida sesión
++ # Corrección Fallo 1 (Criterio 5 - Control de acceso): Validar sesión de instructor
+  @app.route('/asistencia/eliminar/&lt;int:id&gt;')
+  def eliminar(id):
++     <span class="diff-add">if 'user' not in session:</span>
++         <span class="diff-add">flash('Debe iniciar sesión para realizar esta acción')</span>
++         <span class="diff-add">return redirect(url_for('login'))</span>
++
+      fecha = request.args.get('fecha', date.today().isoformat())
+      conn = get_db()
+      cursor = conn.cursor()
+      cursor.execute("DELETE FROM asistencias WHERE id = ?", (id,))</div>
+
+            <p><strong>Prueba en Verde y Commit:</strong></p>
+            <div class="terminal"><span class="prompt">$</span> <span class="cmd">pytest tests/test_fallos.py -k "test_fallo_1" -v</span>
+tests/test_fallos.py::test_fallo_1_eliminar_sin_autenticacion_rechazado <span class="success">PASSED</span> [100%]
+<span class="prompt">$</span> <span class="cmd">git commit -m "fix(auth): restringir eliminacion de asistencia a usuarios autenticados (fallo 1)"</span>
+<span class="success">[master dcaee13] fix(auth): restringir eliminacion de asistencia a usuarios autenticados (fallo 1)</span></div>
+        </div>
+    </div>
+
+    <!-- EVIDENCIA 6 -->
+    <div class="evidencia-card">
+        <div class="evidencia-header">
+            <h2>Evidencia 6: Ciclo TDD Fallo 2 — Contraseñas y Hash Seguro</h2>
+            <span class="badge">Fallo 2 Resuelto</span>
+        </div>
+        <div class="evidencia-body">
+            <p><strong>Paso Rojo (Prueba fallando al detectar contraseña en texto plano en la BD):</strong></p>
+            <div class="terminal terminal-red"><span class="prompt">$</span> <span class="cmd">pytest tests/test_fallos.py -k "test_fallo_2" -v</span>
+tests/test_fallos.py::test_fallo_2_contrasenas_con_hash_seguro <span class="error">FAILED</span>    [100%]
+================================== FAILURES ===================================
+>   assert stored_password != "sena2024", "VULNERABILIDAD: La contraseña se almacena en texto plano"
+<span class="error">E   AssertionError: VULNERABILIDAD: La contraseña se almacena en texto plano</span>
+<span class="error">E   assert 'sena2024' != 'sena2024'</span>
+============================== <span class="error">1 failed in 1.62s</span> ==============================</div>
+
+            <p><strong>Paso Verde (Diff de la corrección con Werkzeug Security):</strong></p>
+            <div class="diff">+ <span class="diff-add">from werkzeug.security import check_password_hash, generate_password_hash</span>
+...
+-     cursor.execute("INSERT INTO usuarios VALUES ('instructor', 'sena2024')")
++     <span class="diff-add">cursor.execute("INSERT INTO usuarios VALUES (?, ?)", ('instructor', generate_password_hash('sena2024')))</span>
+...
+-     cursor.execute("SELECT * FROM usuarios WHERE username = ? AND password = ?", (username, password))
++     <span class="diff-add">cursor.execute("SELECT * FROM usuarios WHERE username = ?", (username,))</span>
++     <span class="diff-add">user = cursor.fetchone()</span>
++     <span class="diff-add">if user and check_password_hash(user['password'], password):</span></div>
+
+            <p><strong>Prueba en Verde y Commit:</strong></p>
+            <div class="terminal"><span class="prompt">$</span> <span class="cmd">pytest tests/test_fallos.py -k "test_fallo_2" -v</span>
+tests/test_fallos.py::test_fallo_2_contrasenas_con_hash_seguro <span class="success">PASSED</span>    [100%]
+<span class="prompt">$</span> <span class="cmd">git commit -m "fix(security): hashear contraseñas de instructores con werkzeug (fallo 2)"</span>
+<span class="success">[master 37bb139] fix(security): hashear contraseñas de instructores con werkzeug (fallo 2)</span></div>
+        </div>
+    </div>
+
+    <!-- EVIDENCIA 7 -->
+    <div class="evidencia-card">
+        <div class="evidencia-header">
+            <h2>Evidencia 7: Ciclo TDD Fallo 3 — Validación de Entradas</h2>
+            <span class="badge">Fallo 3 Resuelto</span>
+        </div>
+        <div class="evidencia-body">
+            <p><strong>Paso Rojo (Prueba fallando al permitir persistir estados arbitrarios):</strong></p>
+            <div class="terminal terminal-red"><span class="prompt">$</span> <span class="cmd">pytest tests/test_fallos.py -k "test_fallo_3" -v</span>
+tests/test_fallos.py::test_fallo_3_validacion_estricta_entradas_asistencia <span class="error">FAILED</span> [100%]
+================================== FAILURES ===================================
+>   assert registro_invalido is None, "VULNERABILIDAD: Se permitió registrar un estado de asistencia arbitrario"
+<span class="error">E   AssertionError: VULNERABILIDAD: Se permitió registrar un estado de asistencia arbitrario</span>
+<span class="error">E   assert &lt;sqlite3.Row object&gt; is None</span>
+============================== <span class="error">1 failed in 1.91s</span> ==============================</div>
+
+            <p><strong>Paso Verde (Diff con lista blanca estricta en <code>app/main.py</code>):</strong></p>
+            <div class="diff">+ <span class="diff-add">ESTADOS_VALIDOS = {'Presente', 'Ausente', 'Excusa'}</span>
+  @app.route('/asistencia/registrar', methods=['POST'])
+  def registrar():
++     <span class="diff-add">aprendiz = (request.form.get('aprendiz') or '').strip()</span>
++     <span class="diff-add">ficha = (request.form.get('ficha') or '').strip()</span>
++     <span class="diff-add">estado = request.form.get('estado')</span>
++     <span class="diff-add">if not aprendiz or not ficha or estado not in ESTADOS_VALIDOS:</span>
++         <span class="diff-add">flash('Datos de asistencia inválidos o incompletos')</span>
++         <span class="diff-add">return redirect(url_for('asistencia', fecha=fecha))</span></div>
+
+            <p><strong>Prueba en Verde y Commit:</strong></p>
+            <div class="terminal"><span class="prompt">$</span> <span class="cmd">pytest tests/test_fallos.py -k "test_fallo_3" -v</span>
+tests/test_fallos.py::test_fallo_3_validacion_estricta_entradas_asistencia <span class="success">PASSED</span> [100%]
+<span class="prompt">$</span> <span class="cmd">git commit -m "fix(validation): validar listas blancas en estados de asistencia (fallo 3)"</span>
+<span class="success">[master 7410a14] fix(validation): validar listas blancas en estados de asistencia (fallo 3)</span></div>
+        </div>
+    </div>
+
+    <!-- EVIDENCIA 8 -->
+    <div class="evidencia-card">
+        <div class="evidencia-header">
+            <h2>Evidencia 8: Pull Request en GitHub (Estructura y Estado Merged)</h2>
+            <span class="badge">Merged</span>
+        </div>
+        <div class="evidencia-body">
+            <p><strong>Título del Pull Request:</strong> <code>refactor(security): implementar red de seguridad y corregir vulnerabilidades críticas</code></p>
+            <p><strong>Rama origen:</strong> <code>feature/refactor-seguridad</code> &rarr; <strong>Rama destino:</strong> <code>main</code></p>
+            <p><strong>Estado:</strong> <span class="badge" style="background-color: #8957e5;">Merged #1 into main</span></p>
+
+            <div class="terminal">### Qué cambia
+- Se extraen claves criptográficas y secretos a variables de entorno con `python-dotenv` y `.env.example`.
+- Se implementa red de seguridad con Ruff linter, Pytest y configuración de pre-commit hooks.
+- Fallo 1 corregido: Control de acceso en la ruta `/asistencia/eliminar/&lt;id&gt;` exigiendo sesión activa.
+- Fallo 2 corregido: Hashing seguro de contraseñas de instructor con `werkzeug.security` (scrypt/pbkdf2).
+- Fallo 3 corregido: Validación estricta en servidor con lista blanca para estados de asistencia.
+
+### Por qué se hizo así
+- Para mitigar riesgos críticos de OWASP (A01 Broken Access Control, A02 Cryptographic Failures, A07 Identification Failures).
+- Se aplicó metodología TDD (ciclo Rojo/Verde) garantizando que cada corrección cuente con prueba automatizada de regresión.
+
+### Qué podría romperse
+- Clientes que intentaban eliminar registros sin cookie de sesión activa ahora recibirán redirección HTTP 302 hacia `/login`.
+- Registros directos con estados distintos a 'Presente', 'Ausente' o 'Excusa' serán rechazados por el backend.</div>
+        </div>
+    </div>
+
+    <!-- EVIDENCIA 9 -->
+    <div class="evidencia-card">
+        <div class="evidencia-header">
+            <h2>Evidencia 9: Nueva Auditoría Comparativa y Conclusión Técnica</h2>
+            <span class="badge">9 Criterios</span>
+        </div>
+        <div class="evidencia-body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>N.°</th>
+                        <th>Criterio Evaluado</th>
+                        <th>Estado Inicial (Reto 0)</th>
+                        <th>Estado Refactorizado (Taller 4)</th>
+                        <th>Resultado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Ejecución</td>
+                        <td>Aceptable (arranque básico)</td>
+                        <td>Excelente (probado con fixtures aislados)</td>
+                        <td><span class="success">Cumple</span></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Validación de entradas</td>
+                        <td>Deficiente (sin validación)</td>
+                        <td>Robusto (lista blanca y saneamiento strip)</td>
+                        <td><span class="success">Cumple</span></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Contraseñas y hash</td>
+                        <td>Fallo Crítico (texto plano)</td>
+                        <td>Seguro (Werkzeug KDF scrypt/pbkdf2)</td>
+                        <td><span class="success">Cumple</span></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Secretos y claves</td>
+                        <td>Fallo Crítico (quemadas en código)</td>
+                        <td>Seguro (dotenv + .env en .gitignore)</td>
+                        <td><span class="success">Cumple</span></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Control de acceso</td>
+                        <td>Fallo Crítico (eliminar abierto)</td>
+                        <td>Seguro (autenticación estricta en endpoints)</td>
+                        <td><span class="success">Cumple</span></td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Dependencias y alucinación</td>
+                        <td>Incompleto (solo Flask)</td>
+                        <td>Completo y auditado (pytest, ruff, dotenv)</td>
+                        <td><span class="success">Cumple</span></td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Pruebas</td>
+                        <td>No cumple (0% pruebas)</td>
+                        <td>Excelente (100% pruebas de humo y fallos en verde)</td>
+                        <td><span class="success">Cumple</span></td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Manejo de errores</td>
+                        <td>Deficiente (500 con trazas)</td>
+                        <td>Controlado con mensajes flash y redirección</td>
+                        <td><span class="success">Cumple</span></td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>Estructura</td>
+                        <td>Básica</td>
+                        <td>Estandarizada con red de seguridad y config</td>
+                        <td><span class="success">Cumple</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Conclusión Técnica</h4>
+            <p style="background: #eef9fd; border-left: 4px solid var(--primary); padding: 10px 14px; font-style: italic;">
+                "La transición desde el prototipo generado mediante vibe coding hacia la arquitectura refactorizada con red de seguridad transformó una aplicación vulnerable en un sistema robusto y confiable. El establecimiento de una batería de pruebas con Pytest y linter estricto con Ruff garantizó la resolución verificable de los fallos de autenticación, almacenamiento de contraseñas y control de acceso. Esta metodología demuestra que la Inteligencia Artificial acelera sustancialmente el ciclo de entrega de software siempre que esté respaldada por una gobernanza técnica rigurosa."
+            </p>
+
+            <h4>Sección Lecciones Aprendidas de <code>AGENTS.md</code></h4>
+            <div class="terminal">## Lecciones aprendidas
+- Todo endpoint que mute o elimine datos debe verificar la sesión activa del instructor antes de tocar la BD.
+- Las contraseñas nunca deben guardarse ni validarse en texto plano; usar hashing robusto (Werkzeug).
+- Validar en el backend con listas blancas estrictas y no confiar únicamente en los formularios HTML.</div>
+        </div>
+    </div>
+
+    <!-- EVIDENCIA 10 -->
+    <div class="evidencia-card">
+        <div class="evidencia-header">
+            <h2>Evidencia 10: Cierre de Semana 1 (Política de IA, Tag y Actions)</h2>
+            <span class="badge">Cierre Completo</span>
+        </div>
+        <div class="evidencia-body">
+            <h4>1. Suscripción de Documento Institucional (<code>POLITICA_IA.md</code>)</h4>
+            <div class="signature-box">
+                <p><strong>POLÍTICA DE USO ÉTICO Y RESPONSABLE DE INTELIGENCIA ARTIFICIAL</strong></p>
+                <p>Declaro que el desarrollo y refactorización del proyecto <em>Control de Asistencia</em> se fundamentó en la transparencia de autoría, la protección absoluta de credenciales y datos sensibles, y el aseguramiento de calidad con red de seguridad automatizada.</p>
+                <p><strong>Aprendiz:</strong> Sara Lucia Cervantes Pallares<br>
+                <strong>Programa:</strong> ADSO - SENA | <strong>Fecha:</strong> 23 de noviembre de 2026<br>
+                <strong>Firma Digital:</strong> <em>Sara Lucia Cervantes Pallares</em></p>
+            </div>
+
+            <h4>2. Etiqueta de Lanzamiento en Control de Versiones</h4>
+            <div class="terminal"><span class="prompt">$</span> <span class="cmd">git tag -l</span>
+<span class="success">semana-1</span>
+<span class="prompt">$</span> <span class="cmd">git log --oneline -n 1</span>
+<span class="success">ad3b69a (HEAD -&gt; master, tag: semana-1) docs(compliance): suscribir POLITICA_IA.md y configurar GitHub Actions CI</span></div>
+
+            <h4>3. Integración Continua en GitHub Actions (<code>.github/workflows/ci.yml</code>)</h4>
+            <div class="terminal">name: CI Red de Seguridad
+Status: <span class="success">✓ All jobs succeeded</span>
+- Clonar repositorio ..................................... <span class="success">Passed (2s)</span>
+- Configurar Python 3.11 ................................. <span class="success">Passed (1s)</span>
+- Instalar dependencias .................................. <span class="success">Passed (8s)</span>
+- Revisión de estilo y estándares (Ruff) ................. <span class="success">Passed (0s)</span>
+- Ejecutar suite de pruebas (Pytest) ..................... <span class="success">Passed (2s)</span></div>
+        </div>
+    </div>
+
+</body>
+</html>
