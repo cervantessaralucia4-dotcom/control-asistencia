@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Gestión de Asistencia{% endblock %}
+
+{% block content %}
+<h3>Filtro por Fecha</h3>
+<form method="GET" action="/asistencia">
+    <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 1.5rem;">
+        <input type="date" name="fecha" value="{{ fecha_filtro }}" required style="padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+        <button type="submit" class="btn">Consultar</button>
+    </div>
+</form>
+
+<hr>
+
+<h3>Registrar Asistencia</h3>
+<form method="POST" action="/asistencia/registrar">
+    <input type="hidden" name="fecha" value="{{ fecha_filtro }}">
+    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 10px; align-items: end;">
+        <div class="form-group" style="margin-bottom: 0;">
+            <label>Nombre del Aprendiz:</label>
+            <input type="text" name="aprendiz" required placeholder="Ej. Juan Pérez">
+        </div>
+        <div class="form-group" style="margin-bottom: 0;">
+            <label>Ficha:</label>
+            <input type="text" name="ficha" required placeholder="Ej. 2670123">
+        </div>
+        <div class="form-group" style="margin-bottom: 0;">
+            <label>Estado:</label>
+            <select name="estado">
+                <option value="Presente">Presente</option>
+                <option value="Ausente">Ausente</option>
+                <option value="Excusa">Excusa</option>
+            </select>
+        </div>
+        <button type="submit" class="btn">Guardar</button>
+    </div>
+</form>
+
+<hr>
+
+<h3>Listado de Asistencia ({{ fecha_filtro }})</h3>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Aprendiz</th>
+            <th>Ficha</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for reg in asistencias %}
+        <tr>
+            <td>{{ reg.id }}</td>
+            <td>{{ reg.aprendiz }}</td>
+            <td>{{ reg.ficha }}</td>
+            <td><strong>{{ reg.estado }}</strong></td>
+            <td>
+                <a href="/asistencia/eliminar/{{ reg.id }}?fecha={{ fecha_filtro }}" class="btn btn-danger" onclick="return confirm('¿Seguro de eliminar este registro?')">Eliminar</a>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="5" style="text-align: center;">No hay registros para la fecha seleccionada.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
